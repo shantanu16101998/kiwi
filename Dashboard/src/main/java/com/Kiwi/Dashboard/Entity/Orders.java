@@ -15,9 +15,9 @@ import lombok.ToString;
 public class Orders {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long OrderId;
-    private String MerchantId;
-    private Double Amount;
-    private Double CustomerId;
+    private Long orderId;
+    private String merchantId;
+    private Double amount;
+    private String customerId;
 
 }

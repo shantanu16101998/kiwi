@@ -16,9 +16,11 @@ public class OrdersService {
     private OrdersRepository OrdersRepository;
 
     public List<Orders> getAllOrderss() {
-        System.out.println("Fetching all orders...");
-        System.out.println(OrdersRepository.findAll());
         return OrdersRepository.findAll();
+    }
+
+    public List<Orders> getByMerchantId(String merchantId) {
+        return OrdersRepository.findByMerchantId(merchantId);
     }
 
 }
