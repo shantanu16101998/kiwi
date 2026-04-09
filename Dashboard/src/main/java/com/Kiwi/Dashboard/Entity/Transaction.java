@@ -18,4 +18,5 @@ public class Transaction {
     public String orderId;
     public Double amount;
     public String customerId;
+    public String status;
 }

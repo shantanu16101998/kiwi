@@ -10,5 +10,5 @@ import com.Kiwi.Dashboard.Entity.Orders;
 @Repository
 public interface OrdersRepository extends JpaRepository<Orders, Long> {
     List<Orders> findByMerchantId(String merchantId);
-    
+   
 }

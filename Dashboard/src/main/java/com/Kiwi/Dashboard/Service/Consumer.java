@@ -16,15 +16,13 @@ import tools.jackson.databind.ObjectMapper;
 public class Consumer {
 
     private ObjectMapper objectMapper = new ObjectMapper();
-    
+
     @Autowired
     private OrdersRepository ordersRepository;
 
     @Autowired
     private TransactionRepository transactionRepository;
 
-
-    
     /* this ideally should be done in txn service */
     public void insertToDB(PublishMessageRequest publishMessageRequest) {
 
@@ -36,8 +34,7 @@ public class Consumer {
             order.setMerchantId(publishMessageRequest.orders.getMerchantId());
             order.setOrderId(publishMessageRequest.orders.getOrderId());
             ordersRepository.save(order);
-        }
-        else if (publishMessageRequest.transaction != null) {
+        } else if (publishMessageRequest.transaction != null) {
             Transaction transaction = new Transaction();
 
             transaction.setAmount(publishMessageRequest.transaction.getAmount());
@@ -54,12 +51,15 @@ public class Consumer {
     @KafkaListener(topics = "test_topic", groupId = "group_id")
     public void consumeMessage(String message) {
 
-        // User user = objectMapper.readValue(json, User.class);
+        try {
+            PublishMessageRequest publishMessageRequest = objectMapper.readValue(message, PublishMessageRequest.class);
 
-        PublishMessageRequest publishMessageRequest = objectMapper.readValue(message, PublishMessageRequest.class);
+            // insertToDB(publishMessageRequest);
 
-        insertToDB(publishMessageRequest);
+            System.out.println("Consumer received message:" + objectMapper.writeValueAsString(publishMessageRequest));
+        } catch (Exception e) {
+            System.out.println("got message: " + message);
+        }
 
-        System.out.println("Consumer received message:" + objectMapper.writeValueAsString(publishMessageRequest));
     }
 }
