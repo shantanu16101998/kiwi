@@ -1,5 +1,7 @@
 package com.Kiwi.Dashboard.Entity;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,5 +21,7 @@ public class Orders {
     private String merchantId;
     private Double amount;
     private String customerId;
-
+    private String status;
+    private LocalDateTime dateCreated;
+    private String currency;
 }
